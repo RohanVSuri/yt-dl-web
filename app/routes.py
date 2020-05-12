@@ -11,7 +11,6 @@ def index():
         link=form.link.data
         d=Down(link)
         d.dl()
-        d.clear_folder()
         # return send_from_directory('download', d.title+'.mp4', as_attachment=True)
         # return send_file(d.title+".mp4", as_attachment=True)
         return send_file(f"download/{d.title}.mp4", as_attachment=True)
