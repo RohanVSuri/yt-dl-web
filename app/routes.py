@@ -10,6 +10,7 @@ def index():
     if request.method == "POST":
         link=form.link.data
         d=Down(link)
+        d.clear_folder()
         d.dl()
         # return send_from_directory('download', d.title+'.mp4', as_attachment=True)
         # return send_file(d.title+".mp4", as_attachment=True)

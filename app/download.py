@@ -2,14 +2,13 @@ from pytube import YouTube
 import os
 from os import listdir
 class Down():
-    def __init__(self, link, title="Video"):
+    def __init__(self, link = None, title="Video"):
         self.link = link
-        self.title= title
+        self.yt = YouTube(self.link)
+        self.title= self.yt.title
 
     def dl(self):
-        yt = YouTube(self.link)
-        self.title=yt.title
-        yt.streams.filter(file_extension='mp4').first().download(output_path=os.getcwd()+"/app/download", filename=yt.title)
+        self.yt.streams.filter(file_extension='mp4').first().download(output_path=os.getcwd()+"/app/download", filename=self.title)
         print("we be downloading" + self.link)
 
     def clear_folder(self):
