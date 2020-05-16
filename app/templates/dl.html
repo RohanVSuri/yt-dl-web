@@ -6,12 +6,16 @@
     {{ form.link.label }}
     {{ form.link(size=32)}}
     {% for error in form.link.errors %}
-      <span style="color:red; "> [{{ error }}]</span>
+    <span style="color:red; "> [{{ error }}]</span>
     {% endfor %}
   </p>
   <br>
   <p>
     {{form.submit()}}
+  </p>
+  <p>
+    {{ form.metaa() }}
+    {{ form.metaa.label }}
   </p>
 </form>
 {% endblock%}
