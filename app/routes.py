@@ -11,11 +11,12 @@ def index():
         link=form.link.data
         d=Down(link)
         d.clear_folder()
-        d.dl()
+        # d.dl()
         # return send_from_directory('download', d.title+'.mp4', as_attachment=True)
         # return send_file(d.title+".mp4", as_attachment=True)
-        return send_file(f"download/{d.title}.mp4", as_attachment=True)
-        # return redirect(url_for("download", title=d.title+'.mp4'))
+        # return send_file(f"download/{d.title}.mp4", as_attachment=True)
+        print(f'Link: {d.dl_link()}')
+        return redirect(d.dl_link())
         # return render_template('test.html', title=d.title)
     else:
         return render_template("dl.html", title="DOWNLOAD", form=form)
