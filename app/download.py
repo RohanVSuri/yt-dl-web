@@ -12,7 +12,7 @@ class Down():
         print("we be downloading" + self.link)
 
     def dl_link(self):
-        return self.yt.streams.filter(file_extension='mp4').first().url
+        return self.yt.streams.filter(file_extension='mp4').get_highest_resolution().url
 
     def clear_folder(self):
         folder_path=os.getcwd()+'/app/download/'
