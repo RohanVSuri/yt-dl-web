@@ -11,6 +11,9 @@ class Down():
         self.yt.streams.filter(file_extension='mp4').first().download(output_path=os.getcwd()+"/app/download", filename=self.title)
         print("we be downloading" + self.link)
 
+    def dl_link(self):
+        return self.yt.streams.filter(file_extension='mp4').get_highest_resolution().url
+
     def clear_folder(self):
         folder_path=os.getcwd()+'/app/download/'
         for file_name in listdir(folder_path):
