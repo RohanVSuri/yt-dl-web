@@ -19,11 +19,8 @@ def index():
         # return send_file(d.title+".mp4", as_attachment=True)
         # return send_file(f"download/{d.title}.mp4", as_attachment=True)
         print(f'Link: {d.dl_link()}')
-       
-        def file_stream():
-            yield from pytube.request.stream(d.dl_link())
 
-        response = Response(file_stream(), mimetype='video/mp4')
+        response = Response(pytube.request.stream(d.dl_link()), mimetype='video/mp4')
         response.headers['Content-Disposition'] = 'attachment'
         return response
         # return render_template('test.html', title=d.title)
