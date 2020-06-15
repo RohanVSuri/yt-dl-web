@@ -14,8 +14,18 @@
     {{form.submit()}}
   </p>
   <p>
-    {{ form.metaa() }}
-    {{ form.metaa.label }}
+    {{ form.metadata() }}
+    {{ form.metadata.label }}
   </p>
+
+
+  {% for subfield in form.ext %}
+    <tr>
+        <td>{{ subfield }}</td>
+        <td>{{ subfield.label }}</td>
+        <br>
+    </tr>
+{% endfor %}
+
 </form>
 {% endblock%}

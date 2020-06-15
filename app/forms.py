@@ -1,8 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField
+from wtforms import StringField, SubmitField, BooleanField, RadioField
 from wtforms.validators import DataRequired
 
-class LoginForm(FlaskForm):
+class Form(FlaskForm):
     link = StringField("Link!!", validators=[DataRequired()])
     submit = SubmitField("Submit", validators=[DataRequired()])
-    metaa = BooleanField("MetaData?", validators=[DataRequired()])
+
+    metadata = BooleanField("MetaData?", validators=[DataRequired()])
+    title = StringField("Title", validators=[DataRequired()])
+    artist = StringField("Artist", validators=[DataRequired()])
+    album = StringField("Album", validators=[DataRequired()])
+
+    ext = RadioField("format", choices=[("mp3", "mp3 (audio)"), ("mp4","mp4 (video)")])
