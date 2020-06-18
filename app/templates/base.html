@@ -3,9 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>{{ title }}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
   </head>
   <body>
-    <h1>WELCOME TO THE SITE</h1>
+    <h1>Download YouTube Videos</h1>
     {% block content%} {% endblock %}
   </body>
 </html>
+
+<script type="text/javascript">
+$('#metadata').prop('checked', false);
+function onCheckChanged(checked){
+    if(checked){
+      $(".dissapear").fadeIn(100 ,'linear');
+    }else{
+      $(".dissapear").fadeOut(100 ,'linear');
+  }
+}
+</script>
