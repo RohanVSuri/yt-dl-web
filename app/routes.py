@@ -13,23 +13,16 @@ def index():
     if request.method == "POST":
         link=form.link.data
         d=Down(link=link, extension=form.ext.data)
+        d.clear_folder()
+        # print(f'Link: {d.dl_link()}')
+        d.dl()
+        if(form.ext.data=="mp3"):
+            d.convert()
+        d.change_metadata(title=form.title.data, artist=form.artist.data, album=form.album.data)
+        return send_file(f"tmp/{d.title}.{form.ext.data}", as_attachment=True)
+        # response = Response(pytube.request.stream(d.dl_link()), mimetype='video/mp4')
+        # response.headers['Content-Disposition'] = 'attachment'
+        # return response
 
-        print(f'Link: {d.dl_link()}')
-
-        response = Response(pytube.request.stream(d.dl_link()), mimetype='video/mp4')
-        response.headers['Content-Disposition'] = 'attachment'
-        return response
-        # return render_template('test.html', title=d.title)
     else:
-        # print(request.form.get("metadata"))
         return render_template("dl.html", title="DOWNLOAD", form=form)
-
-@app.route("/download/<title>")
-def download(title):
-    # return send_file(title+".mp4", as_attachment=True)
-    # return send_from_directory('download', title)
-    # return render_template("test.html")
-    # return send_from_directory(app.config["DOWNLOAD"], filename=title, as_attachment=True)
-    print(title)
-    return send_from_directory("/download", filename=title, as_attachment=True)
-    # return send_file("KW.mp3", as_attachment=True)

@@ -7,8 +7,8 @@ class Form(FlaskForm):
     submit = SubmitField("Submit", validators=[DataRequired()])
 
     metadata = BooleanField("MetaData?", validators=[DataRequired()])
-    title = StringField("Title", validators=[DataRequired()])
-    artist = StringField("Artist", validators=[DataRequired()])
-    album = StringField("Album", validators=[DataRequired()])
+    title = StringField("Title")
+    artist = StringField("Artist")
+    album = StringField("Album")
 
     ext = RadioField("format", choices=[("mp3", "mp3 (audio)"), ("mp4","mp4 (video)")])
