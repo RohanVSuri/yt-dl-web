@@ -2,12 +2,14 @@ from pytube import YouTube
 import os
 from os import listdir
 import taglib
-import time
 class Down():
     def __init__(self, link, title = "YouTube", extension = "mp3"):
         self.link = link
         self.yt = YouTube(self.link)
         self.title= self.yt.title.replace(".","")
+        while(self.title=="YouTube"):
+            self.yt=YouTube(self.link)
+            self.title=self.yt.title.replace(".","")
         self.extension = extension
         self.path = os.getcwd()+"/app/tmp/"
         self.itag = 18

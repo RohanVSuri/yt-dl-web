@@ -14,15 +14,18 @@ def index():
         link=form.link.data
         d=Down(link=link, extension=form.ext.data)
         d.clear_folder()
-        # print(f'Link: {d.dl_link()}')
-        d.dl()
-        if(form.ext.data=="mp3"):
+        print("Clearing Folder...")
+        if(request.form.get("metadata") or form.ext.data=='mp3'):
+            print("first if")
+            d.dl()
+            print("Downloading...")
             d.convert()
-        d.change_metadata(title=form.title.data, artist=form.artist.data, album=form.album.data)
-        return send_file(f"tmp/{d.title}.{form.ext.data}", as_attachment=True)
-        # response = Response(pytube.request.stream(d.dl_link()), mimetype='video/mp4')
-        # response.headers['Content-Disposition'] = 'attachment'
-        # return response
-
+            print("Converting...")
+            d.change_metadata(title=form.title.data, artist=form.artist.data, album=form.album.data)
+            return send_file(f"tmp/{d.title}.{form.ext.data}", as_attachment=True)
+        else:            
+            print("second if")
+            response = Response(pytube.request.stream(d.dl_link()), mimetype='video/mp4', headers={"Content-Disposition":"attachment; filename=" + d.title + ".mp4"})
+            return response
     else:
         return render_template("dl.html", title="DOWNLOAD", form=form)
