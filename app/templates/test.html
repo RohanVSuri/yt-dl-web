@@ -1,4 +1,20 @@
 {% extends "base.html" %}
+
 {% block content %}
-<p>ur video has been downloaded</p>
+<script type=text/javascript>
+        $(function() {
+          $('#hellobutton').bind('click', function() {
+            $.getJSON('/background_process_test',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
+
+        <form action="/" method="post">
+            <!-- <a href=# id=hellobutton><button class='btn btn-default'>Test</button></a> -->
+            <button id="hellobutton" type="submit" onclick="btnName()">Test</button>
+        </form>
 {% endblock %}

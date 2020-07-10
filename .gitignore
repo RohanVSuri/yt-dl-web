@@ -4,3 +4,5 @@ test.py
 app/tmp/*
 .vscode
 .mypy_cache
+app/templates/test.html
+app/templates/dl2.html

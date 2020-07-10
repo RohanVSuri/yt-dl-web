@@ -23,4 +23,12 @@ function onCheckChanged(checked){
       $(".dissapear").fadeOut(100 ,'linear');
   }
 }
+
+function update_form_info(ele) {
+        var $row = ele.closest('tr')
+        var itag = jQuery('td:nth-child(1)', $row).html()
+        var $hidden_eles = ele.closest('td')
+        jQuery('input:nth-child(1)', $hidden_eles).val(itag)
+        
+      }
 </script>

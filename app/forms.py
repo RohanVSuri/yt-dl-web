@@ -10,5 +10,3 @@ class Form(FlaskForm):
     title = StringField("Title")
     artist = StringField("Artist")
     album = StringField("Album")
-
-    ext = RadioField("format", choices=[("mp3", "mp3 (audio)"), ("mp4","mp4 (video)")])
