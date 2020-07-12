@@ -10,6 +10,7 @@ Flask-SQLAlchemy==2.4.1
 Flask-Table @ git+https://github.com/Rohan-vs/flask_table.git@f018cb9b673ba5e4d8c111e00a087688be43c748
 Flask-WTF==0.14.3
 future==0.18.2
+gunicorn==20.0.4
 idna==2.8
 imageio==2.8.0
 imageio-ffmpeg==0.4.2
