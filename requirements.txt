@@ -26,7 +26,6 @@ numpy==1.19.0
 Pillow==7.1.2
 proglog==0.1.9
 pygame==1.9.6
-pytaglib @ git+https://github.com/Rohan-vs/pytaglib.git@dfdcedd31db5a36615c24cb0105019a4595ae30b
 pytube3 @ git+https://github.com/Rohan-vs/pytube.git@539ba227b50548cac85e48e1003478b3d8c9bf82
 pytz==2020.1
 requests==2.21.0
