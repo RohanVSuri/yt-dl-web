@@ -40,7 +40,7 @@ class Tables():
                 print(x, "FAILED!")
                 continue
             else:
-                if not (yt.streams.get_by_itag(x).parse_codecs()[0] and yt.streams.get_by_itag(x).parse_codecs()[0][0:4] == "av01"):
+                if not (self.yt.streams.get_by_itag(x).parse_codecs()[0] and self.yt.streams.get_by_itag(x).parse_codecs()[0][0:4] == "av01"):
                     print(x,"continuing")
                     self.items.append(
                         Item(

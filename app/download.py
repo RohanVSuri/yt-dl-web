@@ -1,4 +1,4 @@
-from pytube import YouTube
+from pytube import YouTube, streams
 import os
 from os import listdir
 # import taglib
@@ -15,7 +15,7 @@ class Down():
         self.itag = itag
 
     def dl(self):
-        self.yt.streams.get_by_itag(self.itag).download(filename=self.title, output_path=path)
+        self.yt.streams.get_by_itag(self.itag).download(filename=self.title, output_path=self.path)
 
     def dl_link(self):
         print(self.yt.streams.get_by_itag(self.itag).url)
@@ -23,9 +23,14 @@ class Down():
 
     def convert(self):
         import moviepy.editor as mp
-        clip = mp.VideoFileClip(f'app/tmp/{self.title}.mp4')
-        clip.audio.write_audiofile(f'app/tmp/{self.title}.mp3')
-        clip.close()
+        if self.yt.streams.get_by_itag(self.itag).parse_codecs()[0]:
+            clip = mp.VideoFileClip(f'app/tmp/{self.title}.mp4')
+            clip.audio.write_audiofile(f'app/tmp/{self.title}.mp3')
+            clip.close()
+        else:
+            clip = mp.AudioFileClip(f'app/tmp/{self.title}.mp4')
+            clip.write_audiofile(f'app/tmp/{self.title}.mp3')
+            clip.close()
     # def change_metadata(self, title, artist, album):
     #     song = taglib.File(f"{self.path}{self.title}.mp4") - installing taglib is hard :(
     #     song.tags["ARTIST"] = artist
