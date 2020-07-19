@@ -1,3 +1,4 @@
+pytaglib==1.4.6 --global-option=build_ext --global-option="-I/app/taglib/taglib_include" --global-option="-L/app/taglib/taglib_lib"
 Babel==2.8.0
 certifi==2020.6.20
 chardet==3.0.4
@@ -25,9 +26,7 @@ mypy-extensions==0.4.3
 numpy==1.19.0
 Pillow==7.1.2
 proglog==0.1.9
-pygame==1.9.6
 pytube3 @ git+https://github.com/Rohan-vs/pytube.git@539ba227b50548cac85e48e1003478b3d8c9bf82
-pytaglib==1.4.6 --global-option=build_ext --global-option="-I/app/taglib/taglib_include" --global-option="-L/app/taglib/taglib_lib"
 pytz==2020.1
 requests==2.21.0
 selenium==3.14.0
