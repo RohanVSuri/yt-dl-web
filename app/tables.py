@@ -6,11 +6,11 @@ class ItemTable(Table):
     itag = Col('itag')
     res = Col('Resolution')
     bitrate = Col('bitrate')
-    size = Col('size')
     file_type = Col('Filetype')
+    size = Col('size')
     button = ButtonCol('Download', endpoint="download",
     button_attrs={'id': 'dl_button','onclick':'update_form_info(this)'}, form_attrs={'action': ''},
-    form_hidden_fields={'itag':'temp_itag'})
+    form_hidden_fields={'itag':'temp_itag', 'file_type': 'temp_file_type'})
 
 class Item(object):
     def __init__(self, itag, res, bitrate, file_type, size):

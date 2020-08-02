@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, request, url_for, send_file, Response, send_from_directory
+from flask import render_template, redirect, request, url_for, send_file, Response, session
 from app.forms import Form
 from app.download import Down
 from app.tables import Tables
@@ -10,39 +10,47 @@ import os
 def index():
     form = Form()
     if request.method == "POST":
-        link=form.link.data
-        metadata=[form.title.data, form.artist.data, form.album.data]
-        return redirect(url_for("download", link=link, metadata=metadata))
+        session["LINK"] = form.link.data
+        session["METADATA"] = [form.title.data, form.artist.data, form.album.data]
+        session["CONVERT"] = form.convert.data
+        return redirect(url_for("download"))
     else:
         return render_template("dl.html", title="DOWNLOAD", form=form)
 
 @app.route('/download', methods=["POST","GET"])
 def download():
-    link=request.args.get("link")
     itag = request.form.get("itag")
-    metadata = request.args.getlist('metadata')
-    # print(request.form['metadata'], "woop")
-    print(metadata)
+    file_type = request.form.get('file_type')
+
+    link=session["LINK"]
+    metadata = session["METADATA"]
+    convert = session["CONVERT"]
+
     form=Form()
-    print(link)
+    
     if request.method == "POST":
         d = Down(link=link, itag=int(itag))
-        if(metadata[0]):
+
+        if(metadata[0] or convert):
             print("first if")
             print("Downloading...")
             d.dl()
-            print("Converting...")
-            d.convert()
-            print("Changing Metadata...")
-            # d.change_metadata(title=metadata[0], artist=metadata[1], album=metadata[2])
-            return send_file(f"tmp/{d.title}.mp3", as_attachment=True)
+            if convert:
+                print("Converting...")
+                d.convert()
+                file_type='mp3'
+            if metadata[0]:
+                print("Changing Metadata...")
+                # d.change_metadata(title=metadata[0], artist=metadata[1], album=metadata[2])
+            return send_file(f"tmp/{d.title}.{file_type}", as_attachment=True)
         else:
             print("second if")
-            filename = f"{d.title}.mp4"
+            filename = f"{d.title}.{file_type}"
             filename = filename.replace(" ", "_")
             print(filename)
-            response = Response(pytube.request.stream(d.dl_link()), mimetype='video/mp4', headers={"Content-Disposition":"attachment; filename=" + filename})
+            response = Response(pytube.request.stream(d.dl_link()), mimetype=f'video/{file_type}', headers={"Content-Disposition":"attachment; filename=" + filename})
             return response
+            
     elif request.method == "GET":
         table = Tables(link)
         table.fill_table()

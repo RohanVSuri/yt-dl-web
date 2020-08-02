@@ -7,6 +7,7 @@ class Form(FlaskForm):
     submit = SubmitField("Submit", validators=[DataRequired()])
 
     metadata = BooleanField("MetaData?", validators=[DataRequired()])
+    convert = BooleanField("Convert?", validators=[DataRequired()])
     title = StringField("Title")
     artist = StringField("Artist")
     album = StringField("Album")

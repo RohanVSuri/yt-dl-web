@@ -6,3 +6,5 @@ app/tmp/*
 .mypy_cache
 app/templates/test.html
 app/templates/dl2.html
+/templates
+.DS_Store
