@@ -11,10 +11,15 @@ def index():
     form = Form()
     if request.method == "POST":
         session["LINK"] = form.link.data
-        session["METADATA"] = [form.title.data, form.artist.data, form.album.data]
+        print(request.form.get('metadata'), 'CHECKBOX METADATA')
+        session["METADATA"] = []
+        if request.form.get("metadata") == "y":
+            session["METADATA"] = [form.title.data, form.artist.data, form.album.data]
         session["CONVERT"] = form.convert.data
+        print(session["METADATA"])
         return redirect(url_for("download"))
     else:
+        session.clear()
         return render_template("dl.html", title="DOWNLOAD", form=form)
 
 @app.route('/download', methods=["POST","GET"])
@@ -30,29 +35,28 @@ def download():
     
     if request.method == "POST":
         d = Down(link=link, itag=int(itag))
-
-        if(metadata[0] or convert):
+        d.clear_folder()
+        if(len(metadata) > 0 or convert):
             print("first if")
             print("Downloading...")
             d.dl()
             if convert:
-                print("Converting...")
-                d.convert()
+                print("Converting to mp3...")
+                d.convert(file_type)
                 file_type='mp3'
-            if metadata[0]:
+            if len(metadata) > 0:
                 print("Changing Metadata...")
-                # d.change_metadata(title=metadata[0], artist=metadata[1], album=metadata[2])
+                d.change_metadata(title=metadata[0], artist=metadata[1], album=metadata[2], file_type=file_type)
             return send_file(f"tmp/{d.title}.{file_type}", as_attachment=True)
         else:
             print("second if")
             filename = f"{d.title}.{file_type}"
             filename = filename.replace(" ", "_")
-            print(filename)
             response = Response(pytube.request.stream(d.dl_link()), mimetype=f'video/{file_type}', headers={"Content-Disposition":"attachment; filename=" + filename})
             return response
             
     elif request.method == "GET":
-        table = Tables(link)
+        table = Tables(link, webm=(metadata!=[]))
         table.fill_table()
         table = table.return_table()
         return render_template("dl.html", title="Download", form=form, table=table)

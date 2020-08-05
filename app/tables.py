@@ -21,17 +21,17 @@ class Item(object):
         self.size = size
 
 class Tables():
-    def __init__(self, link):
+    def __init__(self, link, webm):
         self.link=link
         self.yt = YouTube(self.link)
         self.items = []
+        self.webm = webm
 
     def fill_table(self):
         self.itag_list = self.yt.get_itag_list()
         self.itag_list.sort()
         print(self.itag_list, "before")
         for x in self.itag_list:
-            print(x, "index")
             try:
                 urllib.request.urlopen(self.yt.streams.get_by_itag(x).url)
                 # pytube for sometimes gives streams that dont exist, this doesn't allow them through
@@ -40,17 +40,20 @@ class Tables():
                 print(x, "FAILED!")
                 continue
             else:
-                if not (self.yt.streams.get_by_itag(x).parse_codecs()[0] and self.yt.streams.get_by_itag(x).parse_codecs()[0][0:4] == "av01"):
+                if (not (self.yt.streams.get_by_itag(x).parse_codecs()[0] and self.yt.streams.get_by_itag(x).parse_codecs()[0][0:4] == "av01")):
+                    # gets rid of av01 codec bc it sucks
                     print(x,"continuing")
-                    self.items.append(
-                        Item(
-                            x,
-                            itags.get_format_profile(x)['resolution'],
-                            itags.get_format_profile(x)['abr'],
-                            itags.get_format_profile(x)['file_type'],
-                            str(self.yt.streams.get_by_itag(x).filesize_approx/1000000) + " MB" # sizes are NOT accurate, only estimates
+                    if not (itags.get_format_profile(x)['file_type'] == "webm" and self.webm == True):
+                        #currently not able to change metadata of webm files, so this gets rid of them
+                        self.items.append(
+                            Item(
+                                x,
+                                itags.get_format_profile(x)['resolution'],
+                                itags.get_format_profile(x)['abr'],
+                                itags.get_format_profile(x)['file_type'],
+                                str(self.yt.streams.get_by_itag(x).filesize_approx/1000000) + " MB" # sizes are NOT accurate, only estimates
+                            )
                         )
-                    )
         print(self.itag_list, "after")
     def return_table(self):
         table = ItemTable(self.items)
