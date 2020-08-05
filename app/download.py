@@ -4,12 +4,13 @@ from os import listdir
 from mutagen.mp4 import MP4, MP4Tags
 from mutagen.easyid3 import EasyID3
 class Down():
-    def __init__(self, link, itag, title = "YouTube"):
+    def __init__(self, link, itag = 18, title = "YouTube"):
         self.link = link
         self.yt = YouTube(self.link)
         self.title = self.yt.title.replace(".","")
         self.path = os.getcwd()+"/app/tmp/"
         self.itag = itag
+        self.thumbnail_url = self.yt.thumbnail_url
 
     def dl(self):
         self.yt.streams.get_by_itag(self.itag).download(filename=self.title, output_path=self.path)

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<p id="video_title">
+    {{ video_title }}
+    <a href ="{{ link }}">
+        <img src="{{ thumbnail }}" class="img-fluid" id="thumbnail">
+    </a>
+</p>
+{{ table }}
+{% endblock%}

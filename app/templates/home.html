@@ -18,22 +18,21 @@
     {{ form.metadata.label }}
   </p>
   <p>
+      {{ form.title.label(class="dissapear", style="display:none;") }}
+      {{ form.title(class="dissapear", style="display:none;") }}
+    </p>
+    <p>
+      {{ form.artist.label(class="dissapear", style="display:none;") }}
+      {{ form.artist(class="dissapear", style="display:none;") }}
+    </p>
+    <p>
+      {{ form.album.label(class="dissapear", style="display:none;") }}
+      {{ form.album(class="dissapear", style="display:none;") }}
+    </p>
+  <p>
     {{ form.convert() }}
     {{ form.convert.label }}
   </p>
-  <p>
-    {{ form.title.label(class="dissapear", style="display:none;") }}
-    {{ form.title(class="dissapear", style="display:none;") }}
-  </p>
-  <p>
-    {{ form.artist.label(class="dissapear", style="display:none;") }}
-    {{ form.artist(class="dissapear", style="display:none;") }}
-  </p>
-  <p>
-    {{ form.album.label(class="dissapear", style="display:none;") }}
-    {{ form.album(class="dissapear", style="display:none;") }}
-  </p>
-
 </form>
 {{ table }}
 {% endblock%}

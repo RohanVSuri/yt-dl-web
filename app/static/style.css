@@ -1,0 +1,12 @@
+#video_title {
+    text-align: center;
+    font-size: 150%;
+    position: relative;
+    bottom: 20px;
+}
+#thumbnail{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}

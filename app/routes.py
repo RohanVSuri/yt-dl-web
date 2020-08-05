@@ -20,7 +20,7 @@ def index():
         return redirect(url_for("download"))
     else:
         session.clear()
-        return render_template("dl.html", title="DOWNLOAD", form=form)
+        return render_template("home.html", title="DOWNLOAD", form=form)
 
 @app.route('/download', methods=["POST","GET"])
 def download():
@@ -32,7 +32,8 @@ def download():
     convert = session["CONVERT"]
 
     form=Form()
-    
+    d = Down(link=link)
+
     if request.method == "POST":
         d = Down(link=link, itag=int(itag))
         d.clear_folder()
@@ -59,4 +60,5 @@ def download():
         table = Tables(link, webm=(metadata!=[]))
         table.fill_table()
         table = table.return_table()
-        return render_template("dl.html", title="Download", form=form, table=table)
+        video_title = d.title
+        return render_template("download.html", title="Download", table=table, video_title=d.title, thumbnail=d.thumbnail_url, link=link)
