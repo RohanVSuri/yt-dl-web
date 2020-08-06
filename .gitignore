@@ -1,7 +1,6 @@
 venv/
 __pycache__/
 test.py
-app/tmp/*
 .vscode
 .mypy_cache
 app/templates/test.html
