@@ -11,7 +11,7 @@
   </p>
   <br>
   <p>
-    {{form.submit()}}
+    {{form.submit(type="button")}}
   </p>
   <p>
     {{ form.metadata(onchange="onCheckChanged(this.checked)") }}
@@ -33,6 +33,9 @@
     {{ form.convert() }}
     {{ form.convert.label }}
   </p>
+  
+  <div id="table">
+  </div>
 </form>
-{{ table }}
+<!-- try putting table inside of form -->
 {% endblock%}

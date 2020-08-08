@@ -46,4 +46,5 @@ class Down():
 
     def clear_folder(self):
         for file_name in listdir(self.path):
-            os.remove(self.path + file_name)
+            if file_name != ".gitkeep":
+                os.remove(self.path + file_name)

@@ -1,20 +1,49 @@
 {% extends "base.html" %}
-
 {% block content %}
-<script type=text/javascript>
-        $(function() {
-          $('#hellobutton').bind('click', function() {
-            $.getJSON('/background_process_test',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-</script>
 
-        <form action="/" method="post">
-            <!-- <a href=# id=hellobutton><button class='btn btn-default'>Test</button></a> -->
-            <button id="hellobutton" type="submit" onclick="btnName()">Test</button>
-        </form>
-{% endblock %}
+<form action="" method='POST' novalidate>
+  {{ form.hidden_tag() }}
+  <p>
+    {{ form.link.label }}
+    {{ form.link(size=32, value="https://www.youtube.com/watch?v=6CHs4x2uqcQ")}}
+  </p>
+  <br>
+  <p>
+    {{form.submit(type="button")}}
+  </p>
+  <p>
+    {{ form.metadata(onchange="onCheckChanged(this.checked)") }}
+    {{ form.metadata.label }}
+  </p>
+  <p>
+    {{ form.title.label(class="dissapear", style="display:none;") }}
+    {{ form.title(class="dissapear", style="display:none;") }}
+  </p>
+  <p>
+    {{ form.artist.label(class="dissapear", style="display:none;") }}
+    {{ form.artist(class="dissapear", style="display:none;") }}
+  </p>
+  <p>
+    {{ form.album.label(class="dissapear", style="display:none;") }}
+    {{ form.album(class="dissapear", style="display:none;") }}
+  </p>
+  <p>
+    {{ form.convert() }}
+    {{ form.convert.label }}
+  </p>
+  <p id="video_title">
+      {{ video_title }}
+      <a href ="{{ link }}">
+          <img src="{{ thumbnail }}" class="img-fluid" id="thumbnail">
+      </a>
+  </p>
+  <p id="loading">
+  </p>
+
+  <div id="table">
+    <input type="hidden" name="itag" id="itag">
+    <input type="hidden" name="file_type" id="file_type">
+
+  </div>
+</form>
+{% endblock%}
