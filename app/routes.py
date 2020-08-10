@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, request, url_for, send_file, Response, session
+from flask import render_template, redirect, request, url_for, send_file, Response, session, jsonify
 from app.forms import Form
 from app.download import Down
 from app.tables import Tables
@@ -51,6 +51,7 @@ def update():
         metadata = [form.title.data, form.artist.data, form.album.data]
     convert = form.convert.data    
     table = Tables(link, webm=False)
+    d = Down(link)
     table.fill_table()
     table = table.return_table()
-    return table.__html__()
+    return jsonify({'html' : table.__html__(), 'thumbnail' : d.thumbnail_url, 'title' : d.title})

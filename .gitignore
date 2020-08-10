@@ -8,3 +8,4 @@ app/templates/dl2.html
 /app/tmp/*
 /templates
 .DS_Store
+test.ipynb

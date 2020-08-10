@@ -33,12 +33,17 @@ $(document).ready(function(){
         req = $.ajax({
             url : '/update',
             type : 'POST',
-            data : {link : link}
+            data : {
+                link : link
+            }
         });
 
         req.done(function(data){
-            $('#table').append(data)
+            $('#table').append(data.html)
             $('#loading').html("")
+            $('#tn_link').attr('href', link)
+            $('#thumbnail').attr('src', data.thumbnail)
+            $('#video_title').prepend(data.title)
         });
 
     });
