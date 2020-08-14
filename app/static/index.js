@@ -19,16 +19,16 @@ function update_form_info(ele){
     var file_type = jQuery('td:nth-child(4)', $row).html();
     // these numbers are indexes for the actual table
 
-    $('#itag').attr('value', itag)
-    $('#file_type').attr('value', file_type)
+    $('#itag').attr('value', itag);
+    $('#file_type').attr('value', file_type);
 
 }
 $(document).ready(function(){
 
     $('#submit').click(function(){
 
-        link = $('#link').val()
-        $('#loading').html("Loading...")
+        link = $('#link').val();
+        $('#loading').html("Loading...");
 
         req = $.ajax({
             url : '/update',
@@ -39,12 +39,33 @@ $(document).ready(function(){
         });
 
         req.done(function(data){
-            $('#table').append(data.html)
-            $('#loading').html("")
-            $('#tn_link').attr('href', link)
-            $('#thumbnail').attr('src', data.thumbnail)
-            $('#video_title').prepend(data.title)
+            $('#table').append(data.html);
+            $('#loading').text("");
+
+            $('#tn_link').attr('href', link);
+            $('#thumbnail').attr('src', data.thumbnail);
+            $('#video_title').prepend(data.title);
         });
 
+
     });
+    console.log("hello");
+    namespace = "/test";
+    var socket = io(namespace);
+    // socket = io.connect('http://' + document.domain + ':' + location.port)
+
+    socket.on('message_from_server', function(data){
+
+        $("#loading").text(data['text']);
+
+        console.log(data["text"]);
+        console.log("Helloasdf");
+        alert("JHIOOHIJP");
+
+    });
+    socket.on('message', function(data){
+        alert(data.text);
+    });
+
 });
+

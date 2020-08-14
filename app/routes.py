@@ -1,4 +1,4 @@
-from app import app
+from app import app, socketio
 from flask import render_template, redirect, request, url_for, send_file, Response, session, jsonify
 from app.forms import Form
 from app.download import Down
@@ -47,11 +47,13 @@ def update():
     form = Form()
 
     link = form.link.data
+    metadata=[]
     if request.form.get("metadata") == "y":
         metadata = [form.title.data, form.artist.data, form.album.data]
     convert = form.convert.data    
-    table = Tables(link, webm=False)
+    table = Tables(link, webm=(metadata!=[]))
     d = Down(link)
     table.fill_table()
     table = table.return_table()
+    # socketio.emit('message', {'text' : 'hello what is up '}, namespace= '/test')
     return jsonify({'html' : table.__html__(), 'thumbnail' : d.thumbnail_url, 'title' : d.title})
