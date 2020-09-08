@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form action="" method='POST' novalidate>
+<form action="" id="myForm" role='form' novalidate>
   {{ form.hidden_tag() }}
   <p>
     {{ form.link.label }}
@@ -40,8 +40,11 @@
   </p>
 
   <div id="table">
+    <!-- <button id="dl_button" name='dl_button' onclick="update_form_info(this)" type="button">Download</button> -->
+    <!-- <button id="dl_button" name="dl_button" onclick="update_form_info(this)" type="submit">Download</button> -->
     <input type="hidden" name="itag" id="itag">
     <input type="hidden" name="file_type" id="file_type">
+    <input type="hidden" name="convert" id="convert">
 
   </div>
 </form>

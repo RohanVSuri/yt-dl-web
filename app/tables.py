@@ -9,7 +9,7 @@ class ItemTable(Table):
     file_type = Col('Filetype')
     size = Col('size')
     button = ButtonCol('Download', endpoint="index",
-    button_attrs={'id': 'dl_button','name' : 'dl_button', 'onclick':'update_form_info(this)'})
+    button_attrs={'id': 'dl_button','name' : 'dl_button', 'onclick':'update_form_info(this)', 'type' : 'button'})
 
 class Item(object):
     def __init__(self, itag, res, bitrate, file_type, size):
